@@ -6,22 +6,16 @@ import re
 
 ASSISTANT_ID = os.environ["ASSISTANT_ID"]
 
-FILES = {
-    'file-vY8A41vQ0vJf5MPjxsM2ytg7': 
-        {'title': 'Como iniciar uma conversa',
-        'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000476340-como-iniciar-uma-conversa'},
-    'file-JOsygLBh16FlTK8LdY7YDVnl':
-        {'title': 'Como um atendente opera no Ubots Desk?',
-        'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000380595-como-um-atendente-opera-no-ubots-desk'},
-    'file-TzgcJlLSXERlhZSPjmjGdV1f':
-        {'title': 'Falha ao enviar mensagem no WhatsApp',
-        'link':'https://suporte.ubots.com.br/support/solutions/articles/36000404028-falha-ao-enviar-mensagem-no-whatsapp'},
-    'file-xmaDtqkBiLUZ39Qcy7Y7GR1A':
-        {'title': 'Impressão de Histórico de Conversas',
-         'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000381865-impress%C3%A3o-de-hist%C3%B3rico-de-conversas'},
-    'file-W0D2lyxwCS9lGsHvNsaqkqbX':
-        {'title': 'Formatação de texto: Markdown',
-        'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000453738-formatac%C3%A3o-de-texto-markdown'}}
+FILES = {'file-jmJtxRE0r5uaMijd7j0X93lT': {'title': 'Como iniciar uma conversa',
+  'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000476340-como-iniciar-uma-conversa'},
+ 'file-THj4JxROEK4P1A3E8oxjhLVy': {'title': 'Como um atendente opera no Ubots Desk?',
+  'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000380595-como-um-atendente-opera-no-ubots-desk'},
+ 'file-GW9XyRVVLfHCFycrD8SmPN20': {'title': 'Falha ao enviar mensagem no WhatsApp',
+  'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000404028-falha-ao-enviar-mensagem-no-whatsapp'},
+ 'file-a4QhQRGdQvFe46eEPRwJECwU': {'title': 'Impressão de Histórico de Conversas',
+  'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000381865-impress%C3%A3o-de-hist%C3%B3rico-de-conversas'},
+ 'file-H6WkE9sJ8xwLHTSVQ3scV3ul': {'title': 'Formatação de texto: Markdown',
+  'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000453738-formatac%C3%A3o-de-texto-markdown'}}
 
 key = os.environ["OPENAI_KEY"]
 
