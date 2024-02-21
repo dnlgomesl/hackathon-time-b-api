@@ -6,10 +6,18 @@ import os
 ASSISTANT_ID = os.environ["ASSISTANT_ID"]
 
 FILES = {
-    {'file-vY8A41vQ0vJf5MPjxsM2ytg7': 
-        {'title': 'Como iniciar uma conversa', 'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000476340-como-iniciar-uma-conversa'},
-    'file-JOsygLBh16FlTK8LdY7YDVnl': 
-        {'title': 'Como um atendente opera no Ubots Desk?', 'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000380595-como-um-atendente-opera-no-ubots-desk'}}}
+    'file-vY8A41vQ0vJf5MPjxsM2ytg7': 
+        {'title': 'Como iniciar uma conversa',
+        'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000476340-como-iniciar-uma-conversa'},
+    'file-JOsygLBh16FlTK8LdY7YDVnl':
+        {'title': 'Como um atendente opera no Ubots Desk?',
+        'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000380595-como-um-atendente-opera-no-ubots-desk'},
+    'file-TzgcJlLSXERlhZSPjmjGdV1f':
+        {'title': 'Falha ao enviar mensagem no WhatsApp',
+        'link':'https://suporte.ubots.com.br/support/solutions/articles/36000404028-falha-ao-enviar-mensagem-no-whatsapp'},
+    'file-xmaDtqkBiLUZ39Qcy7Y7GR1A':
+        {'title': 'Impressão de Histórico de Conversas',
+         'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000381865-impress%C3%A3o-de-hist%C3%B3rico-de-conversas'}}
 
 key = os.environ["OPENAI_KEY"]
 
