@@ -66,6 +66,7 @@ def _get_completion_assistant(thread_id, headers=headers):
     
     fileIds = _get_files_from_annotations(annotations)
     references = _get_references(fileIds)
+    
     return {
         "content": answer,
         "references": references
@@ -76,14 +77,16 @@ def _get_references(fileIds):
     for file_id in fileIds:
         file = FILES.get(file_id)
         references.append(file)
+    
+    return references
 
 def _get_files_from_annotations(annotations):
     fileIds = []
     for annotation in annotations:
-        fileIds.append(annotation.file_citation.file_id)
+        fileIds.append(annotation["file_citation"]["file_id"])
     return fileIds
 
-def answer_question(question, time_sleep=60):
+def answer_question(question, time_sleep=15):
     thread_id = _create_thread()
     _create_message(thread_id, question)
     run_id = _create_run(thread_id)
@@ -95,9 +98,9 @@ def answer_question(question, time_sleep=60):
         "answers": [
             {
                 "content": {
-                    "data": answer.content,
+                    "data": answer["content"],
                 },
-                "references": answer.references
+                "references": answer["references"]
             }
         ]
     }
