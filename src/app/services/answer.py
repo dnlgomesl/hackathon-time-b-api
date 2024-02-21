@@ -18,7 +18,10 @@ FILES = {
         'link':'https://suporte.ubots.com.br/support/solutions/articles/36000404028-falha-ao-enviar-mensagem-no-whatsapp'},
     'file-xmaDtqkBiLUZ39Qcy7Y7GR1A':
         {'title': 'Impressão de Histórico de Conversas',
-         'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000381865-impress%C3%A3o-de-hist%C3%B3rico-de-conversas'}}
+         'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000381865-impress%C3%A3o-de-hist%C3%B3rico-de-conversas'},
+    'file-W0D2lyxwCS9lGsHvNsaqkqbX':
+        {'title': 'Formatação de texto: Markdown',
+        'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000453738-formatac%C3%A3o-de-texto-markdown'}}
 
 key = os.environ["OPENAI_KEY"]
 
@@ -65,7 +68,7 @@ def _get_completion_assistant(thread_id, headers=headers):
     annotations = response.json().get("data")[0].get("content")[0].get("text").get("annotations")
     answer = response.json().get("data")[0].get("content")[0].get("text").get("value")
     
-    formattedAnswer = texto_sem_padrao = re.sub(r'【.*?】', '', answer)
+    formattedAnswer = re.sub(r'【.*?】', '', answer)
 
     fileIds = _get_files_from_annotations(annotations)
     references = _get_references(fileIds)
