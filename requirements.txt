@@ -1,0 +1,5 @@
+flask==2.2.3
+Flask-Cors==3.0.10
+Flask-API==3.0.post1
+Werkzeug==2.2.2
+requests

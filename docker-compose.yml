@@ -1,0 +1,14 @@
+version: '3.0'
+
+services:
+  api:
+    container_name: HACKATHON-API
+    build: 
+      context: .
+      args:
+        OPENAI_KEY: $OPENAI_KEY
+        ASSISTANT_ID: $ASSISTANT_ID
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
+    restart: unless-stopped
