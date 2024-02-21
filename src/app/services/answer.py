@@ -63,20 +63,26 @@ def _run_retrive(thread_id, run_id, headers=headers):
 
 def _get_completion_assistant(thread_id, headers=headers):
     url = f'https://api.openai.com/v1/threads/{thread_id}/messages'
-    response = requests.get(url, headers=headers)
-    
-    annotations = response.json().get("data")[0].get("content")[0].get("text").get("annotations")
-    answer = response.json().get("data")[0].get("content")[0].get("text").get("value")
-    
-    formattedAnswer = re.sub(r'【.*?】', '', answer)
 
-    fileIds = _get_files_from_annotations(annotations)
-    references = _get_references(fileIds)
-    
-    return {
-        "content": formattedAnswer,
-        "references": references
-    }
+    while True:
+        response = requests.get(url, headers=headers)
+        if len(response.json().get("data")) > 0:
+            if response.json().get("data")[0].get("role") == "assistant":
+                if len(response.json().get("data")[0].get("content")) > 0:
+                    annotations = response.json().get("data")[0].get("content")[0].get("text").get("annotations")
+                    answer = response.json().get("data")[0].get("content")[0].get("text").get("value")
+                    
+                    formattedAnswer = re.sub(r'【.*?】', '', answer)
+
+                    fileIds = _get_files_from_annotations(annotations)
+                    references = _get_references(fileIds)
+                    
+                    return {
+                        "content": formattedAnswer,
+                        "references": references
+                    }
+                
+        time.sleep(3)
 
 def _get_references(fileIds):
     references = []
@@ -92,12 +98,11 @@ def _get_files_from_annotations(annotations):
         fileIds.append(annotation["file_citation"]["file_id"])
     return fileIds
 
-def answer_question(question, time_sleep=15):
+def answer_question(question):
     thread_id = _create_thread()
     _create_message(thread_id, question)
     run_id = _create_run(thread_id)
     _run_retrive(thread_id, run_id)
-    time.sleep(time_sleep)
     answer = _get_completion_assistant(thread_id)
 
     response = {
