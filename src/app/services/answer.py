@@ -2,6 +2,7 @@ import requests
 import json
 import time
 import os
+import re
 
 ASSISTANT_ID = os.environ["ASSISTANT_ID"]
 
@@ -64,11 +65,13 @@ def _get_completion_assistant(thread_id, headers=headers):
     annotations = response.json().get("data")[0].get("content")[0].get("text").get("annotations")
     answer = response.json().get("data")[0].get("content")[0].get("text").get("value")
     
+    formattedAnswer = texto_sem_padrao = re.sub(r'【.*?】', '', answer)
+
     fileIds = _get_files_from_annotations(annotations)
     references = _get_references(fileIds)
     
     return {
-        "content": answer,
+        "content": formattedAnswer,
         "references": references
     }
 
