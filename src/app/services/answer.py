@@ -82,7 +82,8 @@ def _get_references(fileIds):
     references = []
     for file_id in fileIds:
         file = FILES.get(file_id)
-        references.append(file)
+        if file not in references:
+            references.append(file)
     
     return references
 
