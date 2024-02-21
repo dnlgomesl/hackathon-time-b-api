@@ -6,8 +6,10 @@ import os
 ASSISTANT_ID = os.environ["ASSISTANT_ID"]
 
 FILES = {
-    "file_id": {"title": "TITULO", "link": "url.com.br"}
-}
+    {'file-vY8A41vQ0vJf5MPjxsM2ytg7': 
+        {'title': 'Como iniciar uma conversa', 'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000476340-como-iniciar-uma-conversa'},
+    'file-JOsygLBh16FlTK8LdY7YDVnl': 
+        {'title': 'Como um atendente opera no Ubots Desk?', 'link': 'https://suporte.ubots.com.br/support/solutions/articles/36000380595-como-um-atendente-opera-no-ubots-desk'}}}
 
 key = os.environ["OPENAI_KEY"]
 
@@ -50,8 +52,28 @@ def _run_retrive(thread_id, run_id, headers=headers):
 def _get_completion_assistant(thread_id, headers=headers):
     url = f'https://api.openai.com/v1/threads/{thread_id}/messages'
     response = requests.get(url, headers=headers)
-    return response.json().get("data")[0].get("content")[0].get("text").get("value")
+    
+    annotations = response.json().get("data")[0].get("content")[0].get("text").get("annotations")
+    answer = response.json().get("data")[0].get("content")[0].get("text").get("value")
+    
+    fileIds = _get_files_from_annotations(annotations)
+    references = _get_references(fileIds)
+    return {
+        "content": answer,
+        "references": references
+    }
 
+def _get_references(fileIds):
+    references = []
+    for file_id in fileIds:
+        file = FILES.get(file_id)
+        references.append(file)
+
+def _get_files_from_annotations(annotations):
+    fileIds = []
+    for annotation in annotations:
+        fileIds.append(annotation.file_citation.file_id)
+    return fileIds
 
 def answer_question(question, time_sleep=60):
     thread_id = _create_thread()
@@ -61,6 +83,15 @@ def answer_question(question, time_sleep=60):
     time.sleep(time_sleep)
     answer = _get_completion_assistant(thread_id)
 
-    response = {"answer": answer}
-
+    response = {
+        "answers": [
+            {
+                "content": {
+                    "data": answer.content,
+                },
+                "references": answer.references
+            }
+        ]
+    }
+    
     return response
